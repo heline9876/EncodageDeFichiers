@@ -1,14 +1,14 @@
 from hashlib import sha256
 
-def xor(fichier1, fichier2, key):
+def xor(fichier1, fichier2, clé):
     try:
         with open(fichier1, 'rb') as fichier1:
             with open(fichier2, 'ab') as fichier2:
                 i = 0
                 while fichier1.peek():
-                    cara = ord(fichier1.read(1))
-                    j = i % len(key)
-                    resultat = bytes([cara ^ key[j]])
+                    caractere = ord(fichier1.read(1))
+                    j = i % len(clé)
+                    resultat = bytes([caractere ^ clé[j]])
                     i += 1
                     fichier2.write(resultat)
 
@@ -22,9 +22,9 @@ def encoder():
     print("\n----------------------------\n")
     fichier2 = input("Veuillez entrer le chemin d'accès du fichier où vous souhaitez enregistrer le texte encodé: \n")
     print("\n----------------------------\n")
-    key = input("Veuillez entrer un mot de passe (vous en aurez besoin pour décoder le fichier): \n")
-    key = sha256(key.encode("utf-8")).digest()
-    xor(fichier, fichier2, key)
+    clé = input("Veuillez entrer un mot de passe (vous en aurez besoin pour décoder le fichier): \n")
+    clé = sha256(clé.encode("utf-8")).digest()
+    xor(fichier, fichier2, clé)
     
 def décoder():
     print("\n----------------------------\n")
